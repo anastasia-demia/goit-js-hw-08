@@ -4,17 +4,11 @@ const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 const timeKey = "videoplayer-current-time";
 
-
-
 const onPlay = function(data) {
-  //TODO data is an object containing properties specific to that event
+  localStorage.setItem(timeKey, JSON.stringify(data));
 };
 
-player.on('play', onPlay);
-
-
-
-
+player.on('timeupdate',throttle(onPlay, 1000));
 
 const savedTime = localStorage.getItem(timeKey)
 
